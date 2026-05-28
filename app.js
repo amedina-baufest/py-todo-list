@@ -7,6 +7,46 @@ const API_ENDPOINTS = {
     todos: `${API_BASE_URL}/todos`,
 };
 
+// Dark Mode Management
+const DARK_MODE_KEY = 'todo-dark-mode';
+
+function initializeDarkMode() {
+    const savedDarkMode = localStorage.getItem(DARK_MODE_KEY) === 'true';
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDarkMode = savedDarkMode || (localStorage.getItem(DARK_MODE_KEY) === null && prefersDark);
+    
+    if (isDarkMode) {
+        enableDarkMode();
+    }
+}
+
+function enableDarkMode() {
+    document.documentElement.classList.add('dark-mode');
+    localStorage.setItem(DARK_MODE_KEY, 'true');
+    updateThemeToggleIcon();
+}
+
+function disableDarkMode() {
+    document.documentElement.classList.remove('dark-mode');
+    localStorage.setItem(DARK_MODE_KEY, 'false');
+    updateThemeToggleIcon();
+}
+
+function toggleDarkMode() {
+    if (document.documentElement.classList.contains('dark-mode')) {
+        disableDarkMode();
+    } else {
+        enableDarkMode();
+    }
+}
+
+function updateThemeToggleIcon() {
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.textContent = document.documentElement.classList.contains('dark-mode') ? '☀️' : '🌙';
+    }
+}
+
 // ========================================
 // State Management
 // ========================================
@@ -36,6 +76,7 @@ const DOM = {
     totalCount: document.getElementById('totalCount'),
     activeCount: document.getElementById('activeCount'),
     completedCount: document.getElementById('completedCount'),
+    themeToggle: document.getElementById('themeToggle'),
 };
 
 // ========================================
@@ -403,6 +444,13 @@ DOM.modal.querySelector('.modal-overlay').addEventListener('click', (e) => {
 });
 
 /**
+ * Dark mode toggle
+ */
+if (DOM.themeToggle) {
+    DOM.themeToggle.addEventListener('click', toggleDarkMode);
+}
+
+/**
  * Keyboard shortcuts
  */
 document.addEventListener('keydown', (e) => {
@@ -419,6 +467,8 @@ document.addEventListener('keydown', (e) => {
  * Initialize the app
  */
 function init() {
+    initializeDarkMode();
+    updateThemeToggleIcon();
     fetchTodos();
 }
 

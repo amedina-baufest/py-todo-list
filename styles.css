@@ -52,6 +52,42 @@
     --font-size-2xl: 1.5rem;
 }
 
+/* Dark Mode Variables */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-text-primary: #e6edf3;
+        --color-text-secondary: #8b949e;
+        --color-text-tertiary: #6e7681;
+        --color-bg-default: #0d1117;
+        --color-bg-secondary: #161b22;
+        --color-bg-tertiary: #21262d;
+        --color-border: #30363d;
+        --color-border-hover: #444c56;
+
+        /* Adjust shadows for dark mode */
+        --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+        --shadow-sm: 0 3px 12px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* Dark Mode Class Override */
+html.dark-mode {
+    --color-text-primary: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-text-tertiary: #6e7681;
+    --color-bg-default: #0d1117;
+    --color-bg-secondary: #161b22;
+    --color-bg-tertiary: #21262d;
+    --color-border: #30363d;
+    --color-border-hover: #444c56;
+
+    /* Adjust shadows for dark mode */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 3px 12px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -119,11 +155,15 @@ a:hover {
     padding: var(--spacing-2xl) var(--spacing-lg);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: var(--shadow-xs);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
 }
 
 .header-content {
     max-width: 1200px;
-    margin: 0 auto;
+    flex: 1;
 }
 
 .logo {
@@ -148,6 +188,33 @@ a:hover {
     font-size: var(--font-size-sm);
     opacity: 0.9;
     margin-bottom: 0;
+}
+
+/* Dark Mode Toggle */
+.theme-toggle-btn {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-md);
+    color: white;
+    cursor: pointer;
+    font-size: var(--font-size-lg);
+    padding: var(--spacing-sm) var(--spacing-md);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+
+.theme-toggle-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.95);
 }
 
 .main-content {
