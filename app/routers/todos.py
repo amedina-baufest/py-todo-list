@@ -5,9 +5,17 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models import Todo
-from app.schemas import TodoCreate, TodoResponse, TodoUpdate
+from app.schemas import TodoCreate, TodoResponse, TodoUpdate, TodoStats
 
 router = APIRouter(prefix="/todos", tags=["todos"])
+
+
+@router.get("/stats", response_model=TodoStats)
+def get_stats(db: Session = Depends(get_db)):
+    total = db.query(Todo).count()
+    completed = db.query(Todo).filter(Todo.completed.is_(True)).count()
+    pending = total - completed
+    return TodoStats(total=total, completed=completed, pending=pending)
 
 
 @router.get("/", response_model=list[TodoResponse])

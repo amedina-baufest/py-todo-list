@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO List - Simple Task Manager</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="app-container">
@@ -67,6 +68,14 @@
                     <span id="totalCount" class="stat-item">Total: 0</span>
                     <span id="activeCount" class="stat-item">Pendientes: 0</span>
                     <span id="completedCount" class="stat-item">Completadas: 0</span>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <div class="chart-container">
+                    <h2 class="section-title">Resumen de tareas</h2>
+                    <canvas id="tasksChart"></canvas>
                 </div>
             </section>
 
