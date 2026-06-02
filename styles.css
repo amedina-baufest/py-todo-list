@@ -735,6 +735,32 @@ a:hover {
 }
 
 /* ========================================
+   Charts Section
+   ======================================== */
+
+.charts-section {
+    margin-bottom: var(--spacing-2xl);
+}
+
+.chart-container {
+    background-color: var(--color-bg-default);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-xs);
+}
+
+.chart-container h2 {
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-lg);
+}
+
+#tasksChart {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ========================================
    Responsive Design
    ======================================== */
 

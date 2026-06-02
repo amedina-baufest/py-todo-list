@@ -54,6 +54,7 @@ function updateThemeToggleIcon() {
 let todos = [];
 let currentFilter = 'all';
 let editingTodoId = null;
+let tasksChart = null;
 
 // ========================================
 // DOM Elements
@@ -77,6 +78,7 @@ const DOM = {
     activeCount: document.getElementById('activeCount'),
     completedCount: document.getElementById('completedCount'),
     themeToggle: document.getElementById('themeToggle'),
+    tasksChartCanvas: document.getElementById('tasksChart'),
 };
 
 // ========================================
@@ -127,6 +129,8 @@ function updateStats() {
     DOM.totalCount.textContent = `Total: ${total}`;
     DOM.activeCount.textContent = `Pendientes: ${active}`;
     DOM.completedCount.textContent = `Completadas: ${completed}`;
+    
+    renderChart(total, completed, active);
 }
 
 /**
@@ -141,6 +145,52 @@ function getFilteredTodos() {
         default:
             return todos;
     }
+}
+
+/**
+ * Renders the tasks chart
+ */
+function renderChart(total, completed, pending) {
+    if (!DOM.tasksChartCanvas) return;
+
+    const ctx = DOM.tasksChartCanvas.getContext('2d');
+    
+    // Destroy existing chart if it exists
+    if (tasksChart) {
+        tasksChart.destroy();
+    }
+
+    tasksChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Completadas', 'Pendientes'],
+            datasets: [{
+                data: [completed, pending],
+                backgroundColor: ['#2da44e', '#c67c09'],
+                borderColor: [
+                    getComputedStyle(document.documentElement).getPropertyValue('--color-bg-default'),
+                    getComputedStyle(document.documentElement).getPropertyValue('--color-bg-default')
+                ],
+                borderWidth: 2,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 20,
+                        font: {
+                            size: 14,
+                        },
+                        color: getComputedStyle(document.documentElement).getPropertyValue('--color-text-primary'),
+                    }
+                }
+            }
+        }
+    });
 }
 
 /**
