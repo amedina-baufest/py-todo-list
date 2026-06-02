@@ -166,10 +166,13 @@ function renderChart(total, completed, pending) {
             labels: ['Completadas', 'Pendientes'],
             datasets: [{
                 data: [completed, pending],
-                backgroundColor: ['#2da44e', '#c67c09'],
+                backgroundColor: [
+                    getComputedStyle(document.documentElement).getPropertyValue('--color-success').trim(),
+                    getComputedStyle(document.documentElement).getPropertyValue('--color-warning').trim()
+                ],
                 borderColor: [
-                    getComputedStyle(document.documentElement).getPropertyValue('--color-bg-default'),
-                    getComputedStyle(document.documentElement).getPropertyValue('--color-bg-default')
+                    getComputedStyle(document.documentElement).getPropertyValue('--color-bg-default').trim(),
+                    getComputedStyle(document.documentElement).getPropertyValue('--color-bg-default').trim()
                 ],
                 borderWidth: 2,
             }]
@@ -185,7 +188,7 @@ function renderChart(total, completed, pending) {
                         font: {
                             size: 14,
                         },
-                        color: getComputedStyle(document.documentElement).getPropertyValue('--color-text-primary'),
+                        color: getComputedStyle(document.documentElement).getPropertyValue('--color-text-primary').trim(),
                     }
                 }
             }
