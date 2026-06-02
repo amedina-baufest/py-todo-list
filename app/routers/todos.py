@@ -13,8 +13,8 @@ router = APIRouter(prefix="/todos", tags=["todos"])
 @router.get("/stats", response_model=TodoStats)
 def get_stats(db: Session = Depends(get_db)):
     total = db.query(Todo).count()
-    completed = db.query(Todo).filter(Todo.completed == True).count()
-    pending = db.query(Todo).filter(Todo.completed == False).count()
+    completed = db.query(Todo).filter(Todo.completed.is_(True)).count()
+    pending = total - completed
     return TodoStats(total=total, completed=completed, pending=pending)
 
 
